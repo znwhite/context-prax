@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import AppContext from './context/context';
+import Message from './components/Message';
+import Message2 from './components/Message2';
 import './App.css';
 
 function App() {
+  const [appState, setAppState] = useState({
+    magicNumber: 1
+  })
+
+  const changeNumber = () => {
+    setAppState({
+      ...appState,
+      magicNumber: Math.floor(Math.random() * 20)
+    });
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={appState}>
+      <button onClick={() => changeNumber()}>Change Number</button>
+      <Message />
+      this should be same:
+      <Message2 />
+    </AppContext.Provider>
   );
 }
 
